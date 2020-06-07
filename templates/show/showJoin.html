@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>数据库</title>
+</head>
+<body>
+    <form action="/showTable" method="get">
+    <input type="submit" value="student" name="table">
+    <input type="submit" value="course" name="table">
+    <input type="submit" value="join" name="table">
+    <input type="submit" value="favor" name="table">
+    <input type="submit" value="review" name="table">
+    </form><hr><br>
+    <form action="/addLine">
+    课程号： <input type="text" name="cid" placeholder="请输入课程号">
+    学号： <input type="text" name="sid" placeholder="学号">
+    <input type="submit" name="addType" value="添加">
+    </form><br>
+    <form action="/delJnLine">
+    课程号： <input type="text" name="cid" placeholder="请输入课程号">
+    学号： <input type="text" name="sid" placeholder="学号">
+    <input type="submit" value="删除" name="delType">
+    </form><br>
+    <form action="/addJnBatch" method="post" enctype="multipart/form-data">
+        <input type="file" name="myfile">
+        <input type="submit" value="批量导入">
+    </form><br>
+    <table border="1">
+        <caption>{{table}}</caption>
+        <thead>
+        <tr>
+            <th>课程号</th>
+            <th>课程名</th>
+            <th>教师</th>
+            <th>学生学号</th>
+            <th>评分</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for join in datalist %}
+        <tr>
+            <td>{{join.cid}}</td>
+            <td>{{join.cname}}</td>
+            <td>{{join.teacher}}</td>
+            <td>{{join.sid}}</td>
+            <td>{{join.rate}}</td>
+            <td>
+                <form action="/delJnLine">
+                    <input type="hidden" value="{{join.sid}}" name="sid">
+                    <button type="submit" value="{{join.cid}}" name="cid">删除</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% if not datalist %}
+     <p>暂无数据</p>
+{% endif %}
+</body>
+</html>

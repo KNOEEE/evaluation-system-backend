@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>数据库</title>
+</head>
+<body>
+    <form action="/showTable" method="get">
+    <input type="submit" value="student" name="table">
+    <input type="submit" value="course" name="table">
+    <input type="submit" value="join" name="table">
+    <input type="submit" value="favor" name="table">
+    <input type="submit" value="review" name="table">
+    </form><hr><br>
+    <form action="/addLine">
+    学号： <input type="text" name="sid" placeholder="请输入学号" maxlength="10">
+    密码： <input type="text" name="pwd" placeholder="密码">
+    <input type="submit" name="addType" value="添加学生">
+    </form><br>
+    <form action="/delStLine">
+    学号： <input type="text" name="sid" placeholder="请输入学号" maxlength="10">
+    <input type="submit" value="删除">
+    </form><br>
+    <form action="/addStBatch" method="post" enctype="multipart/form-data">
+        <input type="file" name="myfile">
+        <input type="submit" value="批量导入" name="student">
+    </form><br>
+    <table border="1">
+        <caption>{{table}}</caption>
+        <thead>
+        <tr>
+            <th>学号</th>
+            <th>密码</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for student in datalist %}
+        <tr>
+            <td>{{student.sid}}</td>
+            <td>{{student.pwd}}</td>
+            <td>
+                <form action="/delStLine">
+                    <button type="submit" value="{{student.sid}}" name="sid">删除</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% if not datalist %}
+     <p>暂无数据</p>
+{% endif %}
+</body>
+</html>

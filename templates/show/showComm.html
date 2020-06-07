@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>数据库</title>
+</head>
+<body>
+    <form action="/showTable" method="get">
+    <input type="submit" value="student" name="table">
+    <input type="submit" value="course" name="table">
+    <input type="submit" value="join" name="table">
+    <input type="submit" value="favor" name="table">
+    <input type="submit" value="review" name="table">
+    </form><hr><br>
+    <form action="/delCmLine">
+    课程号： <input type="text" name="cid" placeholder="请输入课程号">
+    学号： <input type="text" name="sid" placeholder="学号">
+    <input type="submit" value="删除评价" name="delType">
+    </form><br>
+    <table border="1">
+        <caption>所有评价</caption>
+        <thead>
+        <tr>
+            <th>课程号</th>
+            <th>学号</th>
+            <th>评分</th>
+            <th>教师评分</th>
+            <th>教学内容</th>
+            <th>教学条件</th>
+            <th>教学方法</th>
+            <th>教学效果</th>
+            <th>评价文本</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for comment in datalist %}
+        <tr>
+            <td>{{comment.cid}}</td>
+            <td>{{comment.sid}}</td>
+            <td>{{comment.rate}}</td>
+            <td>{{comment.index1}}</td>
+            <td>{{comment.index2}}</td>
+            <td>{{comment.index3}}</td>
+            <td>{{comment.index4}}</td>
+            <td>{{comment.index5}}</td>
+            <td>{{comment.text}}</td>
+            <td>
+                <form action="/delCmLine">
+                    <input name="sid" value="{{comment.sid}}" type="hidden">
+                    <input name="rate" value="{{comment.rate}}" type="hidden">
+                    <button type="submit" value="{{comment.cid}}" name="cid">删除</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% if not datalist %}
+     <p>暂无数据</p>
+{% endif %}
+</body>
+</html>

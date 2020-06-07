@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>数据库</title>
+</head>
+<body>
+    <form action="/showTable" method="get">
+    <input type="submit" value="student" name="table">
+    <input type="submit" value="course" name="table">
+    <input type="submit" value="join" name="table">
+    <input type="submit" value="favor" name="table">
+    <input type="submit" value="review" name="table">
+    </form><hr><br>
+    <form action="/addLine">
+    课程号： <input type="text" name="cid" placeholder="请输入课程号">
+    课程名： <input type="text" name="name" placeholder="课程名">
+    教师： <input type="text" name="teacher" placeholder="教师">
+    <input type="submit" name="addType" value="添加课程">
+    </form><br>
+    <form action="/delCsLine">
+    课程号： <input type="text" name="cid" placeholder="请输入课程号">
+    <input type="submit" value="删除课程" name="delType">
+    </form><br>
+    <form action="/addCsBatch" method="post" enctype="multipart/form-data">
+        <input type="file" name="myfile">
+        <input type="submit" value="批量导入">
+    </form><br>
+    <table border="1">
+        <caption>{{table}}</caption>
+        <thead>
+        <tr>
+            <th>课程号</th>
+            <th>课程名</th>
+            <th>教师</th>
+            <th>评分</th>
+            <th>评价人数</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for course in datalist %}
+        <tr>
+            <td>{{course.cid}}</td>
+            <td>{{course.name}}</td>
+            <td>{{course.teacher}}</td>
+            <td>{{course.rate}}</td>
+            <td>{{course.nums}}</td>
+            <td>
+                <form action="/delCsLine">
+                    <button type="submit" value="{{course.cid}}" name="cid">删除</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% if not datalist %}
+     <p>暂无数据</p>
+{% endif %}
+</body>
+</html>

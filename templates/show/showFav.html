@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>数据库</title>
+</head>
+<body>
+    <form action="/showTable" method="get">
+    <input type="submit" value="student" name="table">
+    <input type="submit" value="course" name="table">
+    <input type="submit" value="join" name="table">
+    <input type="submit" value="favor" name="table">
+    <input type="submit" value="review" name="table">
+    </form><hr><br>
+    <table border="1">
+        <caption>收藏</caption>
+        <thead>
+        <tr>
+            <th>学号</th>
+            <th>课程号</th>
+            <th>课程名</th>
+            <th>教师</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for fav in datalist %}
+        <tr>
+            <td>{{fav.sid}}</td>
+            <td>{{fav.cid}}</td>
+            <td>{{fav.cname}}</td>
+            <td>{{fav.teacher}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% if not datalist %}
+     <p>暂无数据</p>
+{% endif %}
+</body>
+</html>
